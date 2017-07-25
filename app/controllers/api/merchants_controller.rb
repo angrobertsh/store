@@ -1,6 +1,6 @@
-class MerchantsController < ApplicationController
+class Api::MerchantsController < ApplicationController
   def index
-    @merchants = @Merchant.all
+    @merchants = Merchant.all
   end
 
   def create

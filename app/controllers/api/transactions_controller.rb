@@ -1,4 +1,4 @@
-class TransactionsController < ApplicationController
+class Api::TransactionsController < ApplicationController
 
   def index
     @transactions = current_user.transactions
@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
       if @transaction.save
         @transaction
       else
-        @transaction.errors.full_messages
+        {errors: @transaction.errors.full_messages}
       end
     }
 

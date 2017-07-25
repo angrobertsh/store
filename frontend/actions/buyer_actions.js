@@ -1,3 +1,5 @@
+import * as BUYER_UTILS from './utils/action_utils/buyer_utils';
+
 export const getShopIndex = () => {
 
 }

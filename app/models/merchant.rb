@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   attr_reader :password
   after_initialize :ensure_session_token
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :store_name, :email, presence: true, uniqueness: true
   validates :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}

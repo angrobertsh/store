@@ -1,4 +1,4 @@
-class SessionController < ApplicationController
+class Api::SessionsController < ApplicationController
 
   def create
     @user = Merchant.find_by_credentials(merchant_params[:email], merchant_params[:password])

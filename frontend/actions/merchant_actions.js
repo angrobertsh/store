@@ -1,3 +1,5 @@
+import * as MERCHANT_UTILS from './utils/action_utils/merchant_utils';
+
 export const addNewItem = (item) => {
 
 };

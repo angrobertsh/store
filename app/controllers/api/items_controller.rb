@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class Api::ItemsController < ApplicationController
 
   before_action :ensure_logged_in, only: [:create, :edit, :update, :destroy]
 
