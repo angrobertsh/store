@@ -1,9 +1,9 @@
 class Api::SessionsController < ApplicationController
 
   def create
-    @user = Merchant.find_by_credentials(merchant_params[:email], merchant_params[:password])
-    if @user
-      login(@user)
+    @merchant = Merchant.find_by_credentials(merchant_params[:email], merchant_params[:password])
+    if @merchant
+      login(@merchant)
       render "api/merchants/show"
     else
       @errors = ["Incorrect name or password."]
@@ -29,7 +29,7 @@ class Api::SessionsController < ApplicationController
   private
 
   def merchant_params
-    params.require[:merchant].permit(:email, :password)
+    params.require(:session).permit(:email, :password)
   end
 
 end

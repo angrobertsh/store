@@ -2,22 +2,25 @@ class Api::ItemsController < ApplicationController
 
   before_action :ensure_logged_in, only: [:create, :edit, :update, :destroy]
 
-  def index
-    if current_user.id == item_params[:merchant_id]
-      @items = Item.where(merchant_id: item_params[:merchant_id])
-    else
-      @items = Item.where(merchant_id: item_params[:merchant_id]).where(active: true)
-    end
-  end
+  # get request for items index doesn't have nested params because of axios limitations
 
-  def show
-    @item = Item.find(item_params[:id])
+  def index
+    if logged_in?
+      if current_user.id == params[:merchant_id]
+        @merchant = Merchant.find(params[:merchant_id])
+        @items = Item.where(merchant_id: params[:merchant_id])
+        render "api/items/index"
+      end
+    end
+    @merchant = Merchant.find(params[:merchant_id])
+    @items = Item.where(merchant_id: params[:merchant_id]).where(active: true)
   end
 
   def create
     @item = Item.new(item_params)
     if @item.save!
-      render "api/items/show"
+      @items = [@item]
+      render "api/items/index"
     else
       @errors = @item.errors.full_messages
       render_errors(@errors)
@@ -27,7 +30,8 @@ class Api::ItemsController < ApplicationController
   def update
     @item = Item.find(item_params[:id])
     if @item.update(item_params)
-      render "api/items/show"
+      @items = [@item]
+      render "api/items/index"
     else
       @errors = @item.errors.full_messages
       render_errors(@errors)
@@ -36,7 +40,8 @@ class Api::ItemsController < ApplicationController
 
   def edit
     @item = Item.find(item_params[:id])
-    render "api/items/show"
+    @items = [@item]
+    render "api/items/index"
   end
 
   def destroy
@@ -49,6 +54,11 @@ class Api::ItemsController < ApplicationController
   private
 
   def ensure_logged_in
+    if !logged_in
+      @errors = ["This is not your store."]
+      render "api/shared/error"
+    end
+    @merchant = current_user
     if current_user.id != item_params.merchant_id
       @errors = ["This is not your store."]
       render "api/shared/error"

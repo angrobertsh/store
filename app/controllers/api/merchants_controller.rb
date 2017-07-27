@@ -5,7 +5,7 @@ class Api::MerchantsController < ApplicationController
 
   def create
     @merchant = Merchant.new(merchant_params)
-    if @merchant.save!
+    if @merchant.save
       login(@merchant)
       render "api/merchants/show"
     else

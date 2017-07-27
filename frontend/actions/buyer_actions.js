@@ -1,27 +1,23 @@
-import * as BUYER_UTILS from './utils/action_utils/buyer_utils';
+import * as BUYER_UTILS from '../utils/api/buyer_utils';
 
-export const getShopIndex = () => {
+export const getShopIndex = () => dispatch => (
+  BUYER_UTILS.fetchShopIndex()
+    .then((shops) => dispatch(receiveShopIndex(shops.data)))
+)
 
-}
+export const getShopItems = (merchantId) => dispatch => (
+  BUYER_UTILS.fetchShopItems(merchantId)
+    .then((shop) => dispatch(receiveShopIndex(shop.data)))
+)
 
-
-export const getShopItems = (merchantId) => {
-
-}
-
-
-export const sendTransactions = (transactions) => {
-
-}
+export const sendTransactions = (transactions) => dispatch => (
+  BUYER_UTILS.sendTransactions(transactions)
+    .then((items) => dispatch(receiveBuyerTransactions(transactions.data)))
+)
 
 export const receiveShopIndex = (shops) => ({
   type: "RECEIVE_SHOP_INDEX",
   shops: shops,
-})
-
-export const receiveShopItems = (items) => ({
-  type: "RECEIVE_SHOP_ITEMS",
-  items: items,
 })
 
 export const receiveBuyerTransactions = (transactions) => ({
