@@ -7,20 +7,38 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom';
+
 import GreetingContainer from './greeting/greeting_container';
 import SessionFormContainer from './session_form/session_form_container';
+import ShopIndexContainer from './shop_index/shop_index_container';
+import ItemIndexContainer from './item_index/item_index_container';
+import CartContainer from './cart/cart_container';
+import ItemFormContainer from './item_form/item_form_container';
+import MerchantShowContainer from './merchant_show/merchant_show_container';
+// import TransactionIndexContainer from './transaction_index/transaction_index_container';
+import { StopIfAlreadyLoggedInRoute, EnsureYourStoreRoute, RootFetchRoute, ItemsFetchRoute } from '../utils/router/router_utils';
+
+// <Route path="/checkout" component={TransactionIndexContainer} />
 
 const App = () => (
   <div>
     <header>
-      <Link to="/">
-        <h1>The Online Store</h1>
-      </Link>
-      <GreetingContainer />
+      <div id="top-bar">
+        <Link to="/">
+          <h1>The Online Store</h1>
+        </Link>
+        <CartContainer />
+        <GreetingContainer />
+      </div>
     </header>
     <Switch>
-      <Route path="/login" component={SessionFormContainer} />
-      <Route path="/signup" component={SessionFormContainer} />
+      <RootFetchRoute exact path="/" component={ShopIndexContainer} />
+      <EnsureYourStoreRoute path="/merchant/:merchantId/items/:itemId" component={ItemFormContainer} />
+      <EnsureYourStoreRoute path="/merchant/:merchantId/items/new" component={ItemFormContainer} />
+      <EnsureYourStoreRoute path="/merchant/:merchantId/myStore" component={MerchantShowContainer} />
+      <ItemsFetchRoute path="/merchant/:merchantId" component={ItemIndexContainer} />
+      <StopIfAlreadyLoggedInRoute path="/login" component={SessionFormContainer} />
+      <StopIfAlreadyLoggedInRoute path="/signup" component={SessionFormContainer} />
     </Switch>
   </div>
 );

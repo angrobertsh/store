@@ -4,16 +4,18 @@ import * as BUYER_ACTIONS from './buyer_actions'
 export const addNewItem = (item) => dispatch => (
   MERCHANT_UTILS.postNewItem(item)
     .then((shop) => dispatch(BUYER_ACTIONS.receiveShopIndex(shop.data)))
+    .catch((errors) => dispatch(receiveMerchantErrors(errors.response.data.errors)))
 );
 
 export const editItem = (item) => dispatch => (
   MERCHANT_UTILS.patchItem(item)
     .then((shop) => dispatch(BUYER_ACTIONS.receiveShopIndex(shop.data)))
+    .catch((errors) => dispatch(receiveMerchantErrors(errors.response.data.errors)))
 );
 
-export const deleteItem = (itemId) => dispatch => (
-  MERCHANT_UTILS.destroyItem(itemId)
-    .then((shop) => dispatch(BUYER_ACTIONS.receiveShopIndex(shop.data)))
+export const deleteItem = (item) => dispatch => (
+  MERCHANT_UTILS.destroyItem(item)
+    .then((shop) => dispatch(BUYER_ACTIONS.mergeDeletionFromShop(shop.data)))
 );
 
 export const getMerchantTransactions = () => dispatch => (
@@ -21,11 +23,12 @@ export const getMerchantTransactions = () => dispatch => (
     .then((transactions) => dispatch(receiveMerchantTransactions(transactions.data)))
 );
 
-export const editTransaction = (transaction) => dispatch => (
-  MERCHANT_UTILS.patchTransaction(transaction)
-    .then((transaction) => dispatch(receiveMerchantTransactions(transaction.data)))
-    .catch((errors) => dispatch(receiveMerchantErrors(errors.response.data.errors)))
-);
+// Probably not needed
+// export const editTransaction = (transaction) => dispatch => (
+//   MERCHANT_UTILS.patchTransaction(transaction)
+//     .then((transaction) => dispatch(receiveMerchantTransactions(transaction.data)))
+//     .catch((errors) => dispatch(receiveMerchantErrors(errors.response.data.errors)))
+// );
 
 export const receiveMerchantTransactions = (transactions) => ({
   type: "RECEIVE_MERCHANT_TRANSACTIONS",
@@ -35,4 +38,8 @@ export const receiveMerchantTransactions = (transactions) => ({
 export const receiveMerchantErrors = (errors) => ({
   type: "RECEIVE_MERCHANT_ERRORS",
   errors
+});
+
+export const clearMerchantErrors = () => ({
+  type: "CLEAR_MERCHANT_ERRORS"
 });

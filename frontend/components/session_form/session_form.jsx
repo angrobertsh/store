@@ -49,7 +49,7 @@ class SessionForm extends React.Component {
   render(){
     return (
       <div id="session-form-container">
-        <NavLink to="/signup">Sign Up</NavLink> or <NavLink to="login">Log In</NavLink>
+        <NavLink to="/signup">Sign Up</NavLink> or <NavLink to="/login">Log In</NavLink>
         { this.renderErrors() }
         <form id="session-form" onSubmit={this.submit}>
           { this.props.location.pathname === "/signup" ? <input className="session-input" name="store_name" type="text" value={this.state.store_name} placeholder="Store Name" onChange={this.update} /> : <div></div> }
