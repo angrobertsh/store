@@ -8,6 +8,7 @@ const TransactionIndex = (props) => {
       {props.transactions.map((transaction, idx) => (
         <TransactionIndexItem transaction={transaction} key={`transaction-${idx}`} />
       ))}
+      Total: {props.transactions.map((transaction) => transaction.total ? parseInt(transaction.total) : 0).reduce((a, b) => (a + b), 0)}
     </div>
   )
 }

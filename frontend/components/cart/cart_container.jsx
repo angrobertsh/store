@@ -8,7 +8,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeItemFromCart: (item) => dispatch(BUYER_ACTIONS.removeItemFromCart(item)),
-  sendTransactions: (transactions) => dispatch(BUYER_ACTIONS.sendTransactions(transactions))
+  sendTransactions: (transactions) => dispatch(BUYER_ACTIONS.sendTransactions(transactions)),
+  emptyCart: () => dispatch(BUYER_ACTIONS.emptyCart()),
 });
 
 export default connect(

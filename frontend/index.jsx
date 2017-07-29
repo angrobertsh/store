@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const preloadedState = { session: {currentUser: currentUser, errors: []} };
     store = configureStore(preloadedState);
     delete window.currentUser
+    store.dispatch(MERCHANT_ACTIONS.getMerchantTransactions())
   } else {
     store = configureStore();
   }

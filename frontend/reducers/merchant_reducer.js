@@ -19,6 +19,8 @@ const MerchantReducer = (state = defaultState, action) => {
     case "CLEAR_MERCHANT_ERRORS":
       newState = merge(newState, {errors: null}, {errors: []});
       return newState;
+    case "CLEAR_MERCHANT_SESSION":
+      return defaultState;
     default:
       return newState;
   }

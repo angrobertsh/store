@@ -1,20 +1,26 @@
 class Api::TransactionsController < ApplicationController
 
   def index
-    @transactions = current_user.transactions
+    @transactions = current_user.transactions.reverse
   end
 
   def create
     @transaction_params = buyer_transaction_params.values
     @transactions = @transaction_params.map {|transaction_param|
       @transaction = Transaction.new(transaction_param)
-      if @transaction.save
-        @transaction
+      @item = Item.find(transaction_param[:item_id])
+      byebug
+      if @transaction.valid?
+        if @item.update!({current_amount: @item.current_amount - transaction_param[:item_amount].to_i})
+          @transaction.save
+          @transaction
+        else
+          {errors: @item.errors.full_messages, item_amount: transaction_param[:item_amount], item_name: @item.name}
+        end
       else
-        {errors: @transaction.errors.full_messages}
+        {errors: @transaction.errors.full_messages, item_amount: transaction_param[:item_amount], item_name: @item.name}
       end
     }
-
     render "api/transactions/index"
   end
 
@@ -32,7 +38,7 @@ class Api::TransactionsController < ApplicationController
 
   def buyer_transaction_params
     keys = params[:transactions].keys
-    properties = [:email, :item_id, :amount, :success]
+    properties = [:email, :item_id, :item_amount, :success]
     all_permitted = keys.map{|key| {key => properties}}
     params.require(:transactions).permit(*all_permitted)
   end

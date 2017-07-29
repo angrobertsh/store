@@ -9,5 +9,5 @@ export const fetchShopItems = (merchantId) => (
 );
 
 export const sendTransactions = (transactions) => (
-  request().post(`api/transactions`, transactions)
+  request().post(`api/transactions`, {transactions: transactions})
 );

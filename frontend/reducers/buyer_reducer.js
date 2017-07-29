@@ -20,15 +20,21 @@ const BuyerReducer = (state = defaultState, action) => {
       return newState;
     case "RECEIVE_BUYER_TRANSACTIONS":
       newState = merge(newState, {transactions: action.transactions})
-      return newState
+      return newState;
+    case "CLEAR_BUYER_TRANSACTIONS":
+      newState = merge(newState, {transactions: null}, {transactions: []});
+      return newState;
     case "ADD_ITEM_TO_CART":
       cart[action.transaction.item_id] = action.transaction;
       newState = merge(newState, {cart: cart});
-      return newState
+      return newState;
     case "REMOVE_ITEM_FROM_CART":
       delete cart[action.transaction.item_id];
       newState = merge(newState, {cart: cart});
-      return newState
+      return newState;
+    case "EMPTY_CART":
+      newState = merge(newState, {cart: null}, {cart: {}});
+      return newState;
     default:
       return newState;
   }

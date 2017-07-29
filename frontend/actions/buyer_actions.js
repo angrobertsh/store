@@ -12,7 +12,7 @@ export const getShopItems = (merchantId) => dispatch => (
 
 export const sendTransactions = (transactions) => dispatch => (
   BUYER_UTILS.sendTransactions(transactions)
-    .then((items) => dispatch(receiveBuyerTransactions(transactions.data)))
+    .then((transactions) => dispatch(receiveBuyerTransactions(transactions.data)))
 )
 
 export const mergeDeletionFromShop = (shop) => ({
@@ -35,7 +35,15 @@ export const removeItemFromCart = (transaction) => ({
   transaction: transaction
 })
 
+export const emptyCart = () => ({
+  type: "EMPTY_CART"
+})
+
 export const receiveBuyerTransactions = (transactions) => ({
   type: "RECEIVE_BUYER_TRANSACTIONS",
   transactions: transactions,
+})
+
+export const clearBuyerTransactions = () => ({
+  type: "CLEAR_BUYER_TRANSACTIONS"
 })

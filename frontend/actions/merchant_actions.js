@@ -43,3 +43,7 @@ export const receiveMerchantErrors = (errors) => ({
 export const clearMerchantErrors = () => ({
   type: "CLEAR_MERCHANT_ERRORS"
 });
+
+export const clearMerchantSession = () => ({
+  type: "CLEAR_MERCHANT_SESSION"
+})

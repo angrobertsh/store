@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 import * as BUYER_ACTIONS from '../../actions/buyer_actions';
+import * as MERCHANT_ACTIONS from '../../actions/merchant_actions';
 
 class RootFetch extends React.Component {
   constructor(props){
@@ -46,6 +47,7 @@ class EnsureYourStore extends React.Component {
   }
 
   componentWillUnmount(){
+    this.props.clearMerchantErrors();
   }
 
   render(){
@@ -57,6 +59,22 @@ class EnsureYourStore extends React.Component {
         <Redirect to="/" />
       )
       )} />
+    );
+  }
+}
+
+class CleanUpBuyerTransactions extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentWillUnmount(){
+    this.props.clearBuyerTransactions();
+  }
+
+  render(){
+    return (
+      <Route path={this.props.path} render={(props) => (<this.props.component {...props} />)} />
     );
   }
 }
@@ -91,10 +109,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return ({
     getShopIndex: () => dispatch(BUYER_ACTIONS.getShopIndex()),
     getShopItems: (merchantId) => dispatch(BUYER_ACTIONS.getShopItems(merchantId)),
+    clearBuyerTransactions: () => dispatch(BUYER_ACTIONS.clearBuyerTransactionsErrors()),
+    clearMerchantErrors: () => dispatch(MERCHANT_ACTIONS.clearMerchantErrors()),
   });
 };
 
 export const StopIfAlreadyLoggedInRoute = withRouter(connect(mapStateToProps, null)(StopIfAlreadyLoggedIn));
+export const CleanUpBuyerTransactionsRoute = withRouter(connect(null, mapDispatchToProps)(StopIfAlreadyLoggedIn));
 export const EnsureYourStoreRoute = withRouter(connect(mapStateToProps, mapDispatchToProps)(EnsureYourStore));
 export const RootFetchRoute = withRouter(connect(null, mapDispatchToProps)(RootFetch));
 export const ItemsFetchRoute = withRouter(connect(null, mapDispatchToProps)(ItemsFetch));

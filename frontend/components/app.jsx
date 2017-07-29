@@ -15,10 +15,9 @@ import ItemIndexContainer from './item_index/item_index_container';
 import CartContainer from './cart/cart_container';
 import ItemFormContainer from './item_form/item_form_container';
 import MerchantShowContainer from './merchant_show/merchant_show_container';
-// import TransactionIndexContainer from './transaction_index/transaction_index_container';
-import { StopIfAlreadyLoggedInRoute, EnsureYourStoreRoute, RootFetchRoute, ItemsFetchRoute } from '../utils/router/router_utils';
+import TransactionIndexContainer from './transaction_index/transaction_index_container';
+import { StopIfAlreadyLoggedInRoute, EnsureYourStoreRoute, RootFetchRoute, ItemsFetchRoute, CleanUpBuyerTransactionsRoute } from '../utils/router/router_utils';
 
-// <Route path="/checkout" component={TransactionIndexContainer} />
 
 const App = () => (
   <div>
@@ -37,6 +36,7 @@ const App = () => (
       <EnsureYourStoreRoute path="/merchant/:merchantId/items/new" component={ItemFormContainer} />
       <EnsureYourStoreRoute path="/merchant/:merchantId/myStore" component={MerchantShowContainer} />
       <ItemsFetchRoute path="/merchant/:merchantId" component={ItemIndexContainer} />
+      <CleanUpBuyerTransactionsRoute path="/checkout" component={TransactionIndexContainer} />
       <StopIfAlreadyLoggedInRoute path="/login" component={SessionFormContainer} />
       <StopIfAlreadyLoggedInRoute path="/signup" component={SessionFormContainer} />
     </Switch>

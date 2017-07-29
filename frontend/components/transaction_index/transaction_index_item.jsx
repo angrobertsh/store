@@ -1,9 +1,17 @@
 import React from 'react';
 
 const TransactionIndexItem = (props) => {
-  if(typeof props.transaction === "string"){
-    return (<div className="transaction transaction-error">{transaction}</div>)
+  if(props.transaction.errors){
+    return (
+      <div className="transaction">
+        <div className="transaction-error">Could not buy {props.transaction.item_amount} {props.transaction.item_name}</div>
+        {props.transaction.errors.map((error, idx) => (
+          <div className="transaction-error-message" key={`transaction-error-${idx}`}>{error}</div>
+        ))}
+      </div>
+    );
   } else {
+    let transaction = props.transaction;
     return (
       <div className="transaction">
         <div className="transaction-info">ID: {transaction.id}</div>
@@ -12,7 +20,6 @@ const TransactionIndexItem = (props) => {
         <div className="transaction-info">Unit Price: {transaction.unit_price}</div>
         <div className="transaction-info">Amount: {transaction.item_amount}</div>
         <div className="transaction-info">Total Price: {transaction.total}</div>
-        <div className="transaction-info">Success? {transaction.success}</div>
       </div>
     )
   }

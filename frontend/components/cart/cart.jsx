@@ -1,14 +1,16 @@
 import React from 'react';
 import CartItem from './cart_item';
+import { withRouter } from 'react-router-dom';
 
 class Cart extends React.Component{
-  constructor(){
+  constructor(props){
     super(props);
     this.state = {
       email: ""
     }
     this.checkout = this.checkout.bind(this);
     this.update = this.update.bind(this);
+    this.composeTransactions = this.composeTransactions.bind(this);
   }
 
   update(e){
@@ -20,8 +22,23 @@ class Cart extends React.Component{
     if(this.state.email === ""){
       alert("Please enter an e-mail to checkout")
     } else {
-      // this.props.sendTransactions(this.props.cart)
+      let transactions = this.composeTransactions();
+      this.props.sendTransactions(transactions);
+      this.props.history.push('/checkout');
+      this.props.emptyCart();
     }
+  }
+
+  composeTransactions(){
+    const keys = Object.keys(this.props.cart);
+    const email = this.state.email;
+    let item;
+    let transactions = {};
+    keys.forEach((key) => {
+      item = this.props.cart[key];
+      transactions[key] = {email: email, item_amount: item.item_amount, item_id: item.item_id}
+    });
+    return transactions;
   }
 
   render(){
@@ -42,4 +59,4 @@ class Cart extends React.Component{
   }
 }
 
-export default Cart;
+export default withRouter(Cart);
