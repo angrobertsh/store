@@ -7,12 +7,14 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom';
+import { StripeProvider } from 'react-stripe-elements';
+
 
 import GreetingContainer from './greeting/greeting_container';
 import SessionFormContainer from './session_form/session_form_container';
 import ShopIndexContainer from './shop_index/shop_index_container';
 import ItemIndexContainer from './item_index/item_index_container';
-import CartContainer from './cart/cart_container';
+import CartWrapper from './cart/cart_wrapper';
 import ItemFormContainer from './item_form/item_form_container';
 import MerchantShowContainer from './merchant_show/merchant_show_container';
 import TransactionIndexContainer from './transaction_index/transaction_index_container';
@@ -26,7 +28,9 @@ const App = () => (
         <Link to="/">
           <h1>The Online Store</h1>
         </Link>
-        <CartContainer />
+        <StripeProvider apiKey={window.STRIPE_KEYS["public"]}>
+          <CartWrapper />
+        </StripeProvider>
         <GreetingContainer />
       </div>
     </header>

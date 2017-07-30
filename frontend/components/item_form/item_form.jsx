@@ -28,6 +28,8 @@ class ItemForm extends React.Component {
     this.update = this.update.bind(this);
     this.submit = this.submit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
+    this.uploadedImage = this.uploadedImage.bind(this);
+    this.upload = this.upload.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -86,20 +88,45 @@ class ItemForm extends React.Component {
     }
   }
 
+  upload(e){
+    e.preventDefault();
+    cloudinary.openUploadWidget(
+      window.CLOUDINARY_OPTIONS,
+      (error, images) => {
+        if(error === null) {
+          this.setState({url: images[0].url});
+        }
+      }
+    );
+  }
+
+  uploadedImage(){
+    if(this.state.url === "") {
+      return (<div id="item-form-upload" onClick={this.upload}>Upload Image</div>);
+    } else {
+      return (<div className="uploaded-image"><img src={this.state.url} /></div>);
+    }
+  }
+
   render(){
     return (
-      <div id="item-form-container">
-        { this.renderErrors() }
-        <form id="item-form" onSubmit={this.submit}>
-          <input type="text" name="name" onChange={this.update} value={this.state.name} placeholder="Item Name" />
-          <input type="text" name="description" onChange={this.update} value={this.state.description} placeholder="Item Description" />
-          <input type="text" name="price" onChange={this.update} value={this.state.price} placeholder="Price Per Unit" />
-          <input type="text" name="url" onChange={this.update} value={this.state.url} placeholder="Image URL" />
-          <input type="text" name="current_amount" onChange={this.update} value={this.state.current_amount} placeholder="Units Available" />
-          <label>Currently for sale? <input type="checkbox" onChange={this.update} name="active" checked={this.state.active}/></label>
-          <input className="submit-button" type="submit" value="Submit" />
-          { this.props.item ? <div id="item-form-delete-button button" onClick={(e) => (this.props.deleteItem(this.props.item))}>Delete Item</div> : <div></div> }
-        </form>
+      <div id="item-form-container-container">
+        <div id="item-form-upload">
+          { this.uploadedImage() }
+        </div>
+        <div id="item-form-container">
+          { this.renderErrors() }
+          <form id="item-form" onSubmit={this.submit}>
+            <input type="text" name="name" onChange={this.update} value={this.state.name} placeholder="Item Name" />
+            <input type="text" name="description" onChange={this.update} value={this.state.description} placeholder="Item Description" />
+            <input type="text" name="price" onChange={this.update} value={this.state.price} placeholder="Price Per Unit (cents)" />
+            <input type="text" name="url" onChange={this.update} value={this.state.url} placeholder="Image URL" />
+            <input type="text" name="current_amount" onChange={this.update} value={this.state.current_amount} placeholder="Units Available" />
+            <label>Currently for sale? <input type="checkbox" onChange={this.update} name="active" checked={this.state.active}/></label>
+            <input className="submit-button" type="submit" value="Submit" />
+            { this.props.item ? <div id="item-form-delete-button button" onClick={(e) => (this.props.deleteItem(this.props.item))}>Delete Item</div> : <div></div> }
+          </form>
+        </div>
       </div>
     )
   }

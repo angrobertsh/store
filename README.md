@@ -1,24 +1,13 @@
-# README
+# The Online Store Store!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This coding challenge is an online store with a merchant CP. Using Rails with React/Redux, basic CRUD implementations of items, merchants (item index + a store name), and transactions were made.
 
-Things you may want to cover:
+# To-do
 
-* Ruby version
+## CSS
 
-* System dependencies
+CSS. Any CSS. Dear lord.
 
-* Configuration
+## Stripe
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The Stripe promise keeps thinking the element isn't mounted and I don't know why.

@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const makeDollars = (num) => (
+  ("$" + (parseFloat(Math.round(parseInt(num) * 100) / 100).toFixed(2)).toString())
+)
+
 class ItemIndexItem extends React.Component {
   constructor(props){
     super(props);
@@ -45,7 +49,7 @@ class ItemIndexItem extends React.Component {
         <div className="item-opacity-overlay clear">
           <div className="item-properties">
             <div className="item-picture">
-              {item.url}
+              <img src={item.url} />
             </div>
             <div className="item-name">
               {item.name}
@@ -59,7 +63,7 @@ class ItemIndexItem extends React.Component {
               {item.current_amount}
             </div>
             <div className="item-price">
-              {item.price}
+              {makeDollars(item.price)}
             </div>
           </div>
           <div className="item-interaction">

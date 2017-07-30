@@ -9,7 +9,6 @@ class Api::TransactionsController < ApplicationController
     @transactions = @transaction_params.map {|transaction_param|
       @transaction = Transaction.new(transaction_param)
       @item = Item.find(transaction_param[:item_id])
-      byebug
       if @transaction.valid?
         if @item.update!({current_amount: @item.current_amount - transaction_param[:item_amount].to_i})
           @transaction.save
@@ -24,21 +23,22 @@ class Api::TransactionsController < ApplicationController
     render "api/transactions/index"
   end
 
-  def update
-    @transaction = Transaction.find(merchant_transaction_params[:id])
-    if @transaction.update(success: single_transaction_params[:success])
-      render "api/transactions/show"
-    else
-      @errors = @transaction.errors.full_messages
-      render_errors(@errors)
-    end
-  end
+  # Unused patch on Transactions
+  # def update
+  #   @transaction = Transaction.find(merchant_transaction_params[:id])
+  #   if @transaction.update(success: single_transaction_params[:success])
+  #     render "api/transactions/show"
+  #   else
+  #     @errors = @transaction.errors.full_messages
+  #     render_errors(@errors)
+  #   end
+  # end
 
   private
 
   def buyer_transaction_params
     keys = params[:transactions].keys
-    properties = [:email, :item_id, :item_amount, :success]
+    properties = [:email, :item_id, :item_amount, :success, :stripe_token]
     all_permitted = keys.map{|key| {key => properties}}
     params.require(:transactions).permit(*all_permitted)
   end
