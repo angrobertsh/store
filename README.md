@@ -7,7 +7,3 @@ This coding challenge is an online store with a merchant CP. Using Rails with Re
 ## CSS
 
 CSS. Any CSS. Dear lord.
-
-## Stripe
-
-The Stripe promise keeps thinking the element isn't mounted and I don't know why.
