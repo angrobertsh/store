@@ -111,20 +111,20 @@ class ItemForm extends React.Component {
   render(){
     return (
       <div id="item-form-container-container">
-        <div id="item-form-upload">
+        <div id="item-form-upload-container">
           { this.uploadedImage() }
         </div>
         <div id="item-form-container">
           { this.renderErrors() }
           <form id="item-form" onSubmit={this.submit}>
-            <input type="text" name="name" onChange={this.update} value={this.state.name} placeholder="Item Name" />
-            <input type="text" name="description" onChange={this.update} value={this.state.description} placeholder="Item Description" />
-            <input type="text" name="price" onChange={this.update} value={this.state.price} placeholder="Price Per Unit (cents)" />
-            <input type="text" name="url" onChange={this.update} value={this.state.url} placeholder="Image URL" />
-            <input type="text" name="current_amount" onChange={this.update} value={this.state.current_amount} placeholder="Units Available" />
+            Item Name: <input type="text" name="name" onChange={this.update} value={this.state.name} placeholder="Item Name" />
+            Item Description: <input type="text" name="description" onChange={this.update} value={this.state.description} placeholder="Item Description" />
+            Price <input type="text" name="price" onChange={this.update} value={this.state.price} placeholder="Price Per Unit (cents)" />
+            Image URL: <input type="text" name="url" onChange={this.update} value={this.state.url} placeholder="Image URL" />
+            Current Amount: <input type="text" name="current_amount" onChange={this.update} value={this.state.current_amount} placeholder="Units Available" />
             <label>Currently for sale? <input type="checkbox" onChange={this.update} name="active" checked={this.state.active}/></label>
             <input className="submit-button" type="submit" value="Submit" />
-            { this.props.item ? <div id="item-form-delete-button button" onClick={(e) => (this.props.deleteItem(this.props.item))}>Delete Item</div> : <div></div> }
+            { this.props.item ? <div id="item-form-delete-button" className="button" onClick={(e) => (this.props.deleteItem(this.props.item))}>Delete Item</div> : <div></div> }
           </form>
         </div>
       </div>

@@ -7,10 +7,12 @@ const ItemIndex = (props) => {
     if(props.shop.items){
       const keys = Object.keys(props.shop.items);
       return (
-        <div id="item-index">
-          {keys.map((key) => (
-            <ItemIndexItem item={props.shop.items[key]} key={`item-${key}`} currentUser={props.currentUser} addItemToCart={props.addItemToCart} />
-          ))}
+        <div id="item-index-container">
+          <div id="item-index">
+            {keys.map((key) => (
+              <ItemIndexItem item={props.shop.items[key]} key={`item-${key}`} currentUser={props.currentUser} addItemToCart={props.addItemToCart} />
+            ))}
+          </div>
         </div>
       )
     }

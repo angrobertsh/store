@@ -49,7 +49,7 @@ class ItemIndexItem extends React.Component {
         <div className="item-opacity-overlay clear">
           <div className="item-properties">
             <div className="item-picture">
-              <img src={item.url} />
+              <img src={item.url} width="150" height="150" />
             </div>
             <div className="item-name">
               {item.name}
@@ -63,7 +63,7 @@ class ItemIndexItem extends React.Component {
               Current Stock: {item.current_amount}
             </div>
             <div className="item-price">
-              Price Per Unit: {makeDollars(item.price)}
+              Price: {makeDollars(item.price)}
             </div>
           </div>
           <div className="item-interaction">
