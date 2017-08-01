@@ -13,3 +13,149 @@
  *= require_tree .
  *= require_self
  */
+ /* http://meyerweb.com/eric/tools/css/reset/
+    v2.0 | 20110126
+    License: none (public domain)
+ */
+
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed,
+ figure, figcaption, footer, header, hgroup,
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+ 	margin: 0;
+ 	padding: 0;
+ 	border: 0;
+ 	font-size: 100%;
+ 	font: inherit;
+ 	vertical-align: baseline;
+  font-family: "Helvetica", Helvetica, sans-serif;
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+ 	display: block;
+ }
+ body {
+ 	line-height: 1;
+ }
+ ol, ul {
+ 	list-style: none;
+ }
+ blockquote, q {
+ 	quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+ 	content: '';
+ 	content: none;
+ }
+ table {
+ 	border-collapse: collapse;
+ 	border-spacing: 0;
+ }
+
+/*Top bar and cart*/
+
+#title{
+  margin-right: 20vw;
+  margin-top: 15px;
+}
+
+#cart-label{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  background-image: url("http://res.cloudinary.com/dujcpxlhk/image/upload/v1501563204/iidp0byride1zhd5uj8j.png");
+  background-size: contain;
+}
+
+#top-bar{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+#cart-item-index{
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 235px;
+}
+
+.greeting-auth-container{
+  padding: 15px;
+}
+
+.greeting-el{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/*Shop*/
+
+#shop-index-container{
+  display: flex;
+  justify-content: center;
+}
+
+#shop-index{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 80%;
+}
+
+#shop-index > * {
+  width: 30%;
+  display: flex;
+  padding: 80px 0 80px 0;
+  margin: 50px 0 50px 0;
+  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(185, 185, 185, 1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 2px rgba(159, 174, 232, .3);
+}
+
+
+
+/*Assorted classes*/
+
+.fixed{
+  position: fixed;
+}
+
+.none{
+  display: none;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.flex{
+  display: flex;
+}
+
+.column{
+  flex-direction: column;
+}
+
+.justify-flex-end{
+  justify-content: flex-end;
+}
+
+.align-flex-end{
+  align-items: flex-end;
+}

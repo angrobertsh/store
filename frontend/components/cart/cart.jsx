@@ -12,6 +12,7 @@ class Cart extends React.Component{
     this.checkout = this.checkout.bind(this);
     this.update = this.update.bind(this);
     this.composeTransactions = this.composeTransactions.bind(this);
+    this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   update(e){
@@ -23,7 +24,6 @@ class Cart extends React.Component{
     if(this.state.email === ""){
       alert("Please enter an e-mail to checkout")
     } else {
-
       this.props.stripe.createToken().then((result) => {
         let transactions = this.composeTransactions(result.token.id);
         this.props.sendTransactions(transactions);
@@ -46,23 +46,26 @@ class Cart extends React.Component{
     return transactions;
   }
 
+  toggleVisibility(){
+    this.cart.classList.toggle("none");
+  }
+
   render(){
-    debugger
     const keys = Object.keys(this.props.cart);
     return (
-      <div id="cart-container">
-        <label> Cart </label>
-        <div id="cart-item-index">
+      <div id="cart-container" className="flex column align-flex-end">
+        <label onClick={this.toggleVisibility} id="cart-label"> </label>
+        <div id="cart-item-index" className="none" ref={cart => this.cart = cart}>
           {keys.map((key) => (
             <CartItem item={this.props.cart[key]} key={`cart-item-${key}`} removeItemFromCart={this.props.removeItemFromCart} />
           ))}
           <div id="cart-footer">
-            <form id="checkout-form" onSubmit={this.checkout}>
+            <form id="checkout-form" className="flex column" onSubmit={this.checkout}>
               <input type="text" name="email" value={this.state.email} placeholder="E-mail" onChange={this.update} />
               <label>
                 Card details
                   <CardElement />
-                </label>
+              </label>
               <input type="submit" id="checkout-button" value="Checkout" className="button" />
             </form>
           </div>

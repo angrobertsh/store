@@ -25,13 +25,11 @@ const App = () => (
   <div>
     <header>
       <div id="top-bar">
-        <Link to="/">
-          <h1>The Online Store</h1>
-        </Link>
+        <GreetingContainer />
+        <h1 id="title"><Link to="/">The Online Shoppymart</Link></h1>
         <StripeProvider apiKey={window.STRIPE_KEYS["public"]}>
           <CartWrapper />
         </StripeProvider>
-        <GreetingContainer />
       </div>
     </header>
     <Switch>
